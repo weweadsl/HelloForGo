@@ -1,39 +1,38 @@
 package main
 
-
 import (
-	"fmt"
-	"log"
-	"net/http"
+    "log"
+    "net/http"
+    "os"
+    "strings"
 )
 
-func hello(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "hello\n")
+var version = "master"
+
+func showVersion(w http.ResponseWriter, r *http.Request) {
+    log.Println(version)
+    w.Write([]byte(version))
 }
 
-func headers(w http.ResponseWriter, req *http.Request) {
-	for name, headers := range req.Header {
-		for _, h := range headers {
-			fmt.Fprintf(w, "%v: %v\n", name, h)
-		}
-	}
-}
-
-func hi (w http.ResponseWriter, req *http.Request){
-	fmt.Fprintf(w, "Hi\n")
+func sayHello(w http.ResponseWriter, r *http.Request) {
+    message := r.URL.Path
+    message = strings.TrimPrefix(message, "/")
+    message = "Hello, drone got the message: " + message
+    log.Println(message)
+    w.Write([]byte(message))
 }
 
 func main() {
-
-	//http.HandleFunc("/hello",  hello)
-	//http.HandleFunc("/headers", headers)
-	//http.HandleFunc("/", hi)
-	//http.ListenAndServe(":8090", nil)
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello World")
-	})
-
-	log.Fatal(http.ListenAndServe(":8090", nil))
-
+    // use PORT environment variable, or default to 8080
+    port := "8080"
+    if fromEnv := os.Getenv("PORT"); fromEnv != "" {
+        port = fromEnv
+    }
+    http.HandleFunc("/version", showVersion)
+    http.HandleFunc("/", sayHello)
+    log.Println("Listen server on " + port + " port")
+    if err := http.ListenAndServe(":"+port, nil); err != nil {
+        log.Fatal(err)
+    }
 }
+
