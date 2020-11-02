@@ -43,21 +43,7 @@ spec:
             initialDelaySeconds: 10
 
           resources:
-            limits:apiVersion: v1
-              kind: Service
-              metadata:
-                namespace: spock
-                name: hello-example
-                labels:
-                  app: hello-example
-              spec:
-                clusterIP: None
-                ports:
-                  - port: 8080
-                    protocol: TCP
-                    targetPort: 8080
-                selector:
-                  app: hello-example
+            limits:
               cpu: 100m
               memory: 100Mi
             requests:
