@@ -2,7 +2,7 @@ pipeline:
   backend:
     image: golang
     commands:
-      - echo "backend testing11"
+      - echo "backend testing111"
  
   frontend:
     image: golang
