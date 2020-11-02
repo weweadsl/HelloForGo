@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: hello
+  name: hello-example
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-example
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: hello-example
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: hello-example-configmap
+
+      containers:
+        - name: hello-example
+          image: weweadsl/helloworld:latest
+          imagePullPolicy: IfNotPresent
+          workingDir: /app
+          command:
+            - app
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:8080"]
+            initialDelaySeconds: 5
+          livenessProbe:
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:8080"]
+            initialDelaySeconds: 10
+
+          resources:
+            limits:apiVersion: v1
+              kind: Service
+              metadata:
+                namespace: spock
+                name: hello-example
+                labels:
+                  app: hello-example
+              spec:
+                clusterIP: None
+                ports:
+                  - port: 8080
+                    protocol: TCP
+                    targetPort: 8080
+                selector:
+                  app: hello-example
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 50Mi
+
+          volumeMounts:
+            - name: config
+              readOnly: true
+              mountPath: /app/
