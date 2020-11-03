@@ -29,8 +29,8 @@ spec:
           image: weweadsl/helloworld:latest
           imagePullPolicy: IfNotPresent
           workingDir: /app
-          command:
-            - app
+#          command:
+#            - app
           ports:
             - containerPort: 8080
           readinessProbe:
