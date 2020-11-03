@@ -50,7 +50,7 @@ spec:
               cpu: 50m
               memory: 50Mi
 
-          volumeMounts:
-            - name: config
-              readOnly: true
-              mountPath: /app/
+#          volumeMounts:
+#            - name: config
+#              readOnly: true
+#              mountPath: /app/
