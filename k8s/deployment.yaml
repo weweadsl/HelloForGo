@@ -34,12 +34,14 @@ spec:
           ports:
             - containerPort: 8080
           readinessProbe:
-            exec:
-              command: ["curl", "/"]
+            httpGet:
+              path: /
+              port: 8080
             initialDelaySeconds: 5
           livenessProbe:
-            exec:
-              command: ["ls", "/"]
+            httpGet:
+              path: /
+              port: 8080
             initialDelaySeconds: 10
 
           resources:
