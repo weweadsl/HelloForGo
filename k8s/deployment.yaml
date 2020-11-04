@@ -35,14 +35,11 @@ spec:
             - containerPort: 8080
           readinessProbe:
             exec:
-              command:
-              - ls
-              - "127.0.0.1:8080"
+              command: ["curl", "/"]
             initialDelaySeconds: 5
           livenessProbe:
             exec:
-              - ls
-              - "127.0.0.1:8080"
+              command: ["ls", "/"]
             initialDelaySeconds: 10
 
           resources:
