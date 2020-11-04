@@ -1,10 +1,13 @@
-pipeline:
-  backend:
+kind: pipeline
+name: default
+
+steps:
+  - name: backend
     image: golang
+    environment:
+        USERNAME:
+            from_secret: username
     commands:
-      - echo "backend testing11111"
- 
-  frontend:
-    image: golang
-    commands:
-      - echo "frontend testing2"
+      - go build
+      - go test
+      - echo test
