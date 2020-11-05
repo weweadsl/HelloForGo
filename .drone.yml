@@ -18,7 +18,7 @@ steps:
   pull: always
   image: docker.mediatek.io/cpc/test
   commands:
-  - echo "test1"
+  - echo "test11"
   - echo "test2"
 
 image_pull_secrets:
