@@ -16,7 +16,7 @@ steps:
 
 - name: testing2
   pull: always
-  image: docker.mediatek.io/cpc/test
+  image: ubuntu
   commands:
   - echo "test11"
   - echo "test22"
