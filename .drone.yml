@@ -1,24 +1,24 @@
 ---
 kind: pipeline
-name: testing
+name: build
 
 platform:
   os: linux
   arch: amd64
 
 steps:
-  - name: testing1
-    pull: always
-    image: golang:1.12-alpine
-    commands:
-      - echo "test1"
-      - echo "test2"
+- name: testing1
+  pull: always
+  image: golang:1.12-alpine
+  commands:
+  - echo "test1"
+  - echo "test2"
 
-  - name: testing2
-    pull: always
-    image: ubuntu
-    commands:
-      - echo "test11"
-      - echo "test22"
+- name: testing2
+  pull: always
+  image: ubuntu
+  commands:
+  - echo "test11"
+  - echo "test22"
 
 
