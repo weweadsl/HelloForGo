@@ -21,5 +21,6 @@ steps:
   - echo "test11"
   - echo "test22"
 
-image_pull_secrets:
-- dockerconfigjson
+
+
+
