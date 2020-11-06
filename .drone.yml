@@ -21,9 +21,9 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      repo: https://hub.docker.com/repository/docker/weweadsl/helloworld
+      repo: weweadsl/helloworld
       tags: ${DRONE_TAG}
-      registry: https://hub.docker.com/
+      registry: https://hub.docker.com
 
   - name: testing2
     pull: always
