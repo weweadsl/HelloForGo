@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: testing
+name: build
 
 platform:
   os: linux
@@ -14,13 +14,22 @@ steps:
   - echo "test1"
   - echo "test2"
 
+- name: build-image
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: https://hub.docker.com/repository/docker/weweadsl/helloworld
+    tags: ${DRONE_TAG}
+    registry: https://hub.docker.com/
+
 - name: testing2
   pull: always
   image: ubuntu
   commands:
   - echo "test11"
   - echo "test22"
-
-
 
 
