@@ -12,8 +12,8 @@ steps:
     image: golang:1.12-alpine
     commands:
       - echo "test1"
-      - echo docker_username
-      - echo docker_password
+      - echo ${docker_username}
+      - echo ${docker_password}
       - echo "test2"
 
   - name: build-image
