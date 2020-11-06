@@ -19,7 +19,7 @@ steps:
   image: docker.mediatek.io/cpc/test
   commands:
   - echo "test11"
-  - echo "test2"
+  - echo "test22"
 
 image_pull_secrets:
 - dockerconfigjson
