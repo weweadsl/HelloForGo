@@ -22,5 +22,94 @@ steps:
   - echo "test22"
 
 
+---
+kind: pipeline
+name: build
 
+workspace:
+  base: /go
+  path: src/git.aceqilin.com/${DRONE_REPO}
+
+steps:
+
+  - dependancies:
+    name: dependancies
+    image: gcr.io/ace-rd/base-image:v1.0.10
+    environment:
+      GO111MODULE: on
+      GOOS: linux
+      GOARCH: amd64
+      CGO_ENABLED: 0
+      GITEA_KEY:
+        from_secret: gitea_key
+    commands:
+      - cat << EOF > ~/.ssh/id_rsa
+      - $GITEA_KEY
+      - EOF
+      - go mod vendor >/dev/null 2>&1
+      - tags=$(git rev-parse --short HEAD)
+      - if [ ! -z "$DRONE_TAG" ]; then tags="$tags,$DRONE_TAG,latest"; fi
+      - echo $tags | tee .tags
+      -
+  - name: build
+    image: gcr.io/ace-rd/base-image:v1.0.4
+    environment:
+      GO111MODULE: on
+      GOOS: linux
+      GOARCH: amd64
+      CGO_ENABLED: 0
+      GITEA_KEY:
+        from_secret: gitea_key
+    commands:
+      - go mod vendor >/dev/null 2>&1
+      - go build -gcflags="-m -w -s" -ldflags "-X main.version=$DRONE_TAG" -o app
+      - upx app >/dev/null 2>&1
+
+  - push:
+    name: push-images
+    image: plugins/gcr
+    settings:
+      registry: gcr.io
+      repo: ace-rd/spock-${DRONE_REPO_NAME}
+      dockerfile: docker/Dockerfile
+      tags:
+        - ${DRONE_TAG}
+      json_key:
+        from_secret: gcr_key
+
+trigger:
+  event: [ tag ]
+
+---
+kind: pipeline
+name: notify
+
+workspace:
+  base: /go
+  path: src/git.aceqilin.com/${DRONE_REPO}
+
+clone:
+  disable: true
+
+steps:
+  - name: notify
+    image: plugins/slack
+    environment:
+      DRONE_BUILD_LINK: https://${DRONE_SYSTEM_HOST}/${DRONE_REPO}/${DRONE_BUILD_NUMBER}
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      room: general
+      username: Drone CI
+    when:
+      status: [ success, failure ]
+
+depends_on:
+  - build
+
+trigger:
+  status:
+    - success
+    - failure
+  event: [ tag ]
 
