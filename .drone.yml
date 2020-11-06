@@ -17,13 +17,13 @@ steps:
   - name: build-image
     image: plugins/docker
     settings:
+      repo: weweadsl/helloworld
+      target: production
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      repo: "weweadsl/helloworld"
       tags: ${DRONE_TAG}
-      registry: "hub.docker.com"
 
   - name: testing2
     pull: always
