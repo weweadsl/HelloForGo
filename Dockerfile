@@ -8,4 +8,4 @@ FROM alpine
 WORKDIR /app
 COPY --from=build-env /src/app /app/
 EXPOSE 8080
-ENTRYPOINT ./app
+ENTRYPOINT ./app --world $word

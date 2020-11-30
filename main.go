@@ -27,10 +27,12 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 func main() {
 
     wordPtr := flag.String("word", "world", "a string")
+    vers := flag.Int("vers", 1, "a int")
 
     flag.Parse()
 
     fmt.Println(*wordPtr)
+    fmt.Println(*vers)
 
     // use PORT environment variable, or default to 8080
     port := "8080"

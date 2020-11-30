@@ -1,0 +1,5 @@
+service:
+  name: hello-server
+
+tcp:
+  word: test
