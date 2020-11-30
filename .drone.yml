@@ -9,7 +9,7 @@ platform:
 steps:
   - name: testing1
     pull: never
-    image: golang:1.12-alpine
+#    image: golang:1.12-alpine
     commands:
       - echo "test1"
       - echo "test2"
@@ -34,11 +34,11 @@ steps:
 #      tags: ${DRONE_TAG}
 
   - name: testing2
-    pull: always
-    image: ubuntu
+    pull: never
+#    image: ubuntu
     commands:
       - echo "test11"
       - echo "test222"
 
-image_pull_secrets:
-  - dockerconfigjson
+#image_pull_secrets:
+#  - dockerconfigjson
