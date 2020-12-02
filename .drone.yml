@@ -11,7 +11,7 @@ steps:
     pull: never
     image: golang:1.12-alpine
     commands:
-      - go get github.com/joho/godotenv
+      - go get
       - echo "test1"
       - echo "test2"
 
