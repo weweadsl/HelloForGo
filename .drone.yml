@@ -10,6 +10,12 @@ steps:
   - name: testing1
     pull: never
     image: golang
+    environment:
+      GO111MODULE: on
+      GOOS: linux
+      GOARCH: amd64
+      CGO_ENABLED: 0
+      TEST: abc
     commands:
       - go get github.com/joho/godotenv
       - echo "test1"
