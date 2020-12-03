@@ -14,17 +14,22 @@ steps:
     pull: never
     image: golang
     environment:
+      TEXT: 123
+    commands:
+      - echo "test drone"
+      - echo $TEST
+
+  - name: build
+    image: golang
+    environment:
       GO111MODULE: on
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
-      - go get github.com/joho/godotenv
-      - echo "test1"
-      - echo "test22"
-      - echo $TEST
+      - go build  -o app
 
-  - name: build-image
+  - name: publish-image
     image: plugins/docker
     dockerfile: docker/Dockerfile
     environment:
@@ -49,27 +54,6 @@ steps:
       - echo "test111"
       - echo "test222"
       - echo $TEST
-
-#  - name: publish
-#    image: plugins/gcr
-#    settings:
-#      repo: project/foo
-#      tags: latest
-#      json_key:
-#        from_secret: google_credentials
-#
-#  - name: build-image
-#    image: plugins/docker
-#    settings:
-#      repo: weweadsl/helloworld
-#      target: production
-#      username:
-#        from_secret: docker_username
-#      password:
-#        from_secret: docker_password
-#      tags: ${DRONE_TAG}
-
-
 
 image_pull_secrets:
   - dockerconfigjson
