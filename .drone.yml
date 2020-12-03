@@ -30,6 +30,7 @@ steps:
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
+      - go mod vendor
       - go build  -o app
 
   - name: publish-image
