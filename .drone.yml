@@ -6,9 +6,6 @@ platform:
   os: linux
   arch: amd64
 
-workspace:
-  base: /go
-
 steps:
   - name: testing1
     pull: never
