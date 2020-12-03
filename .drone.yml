@@ -6,27 +6,39 @@ platform:
   os: linux
   arch: amd64
 
+workspace:
+  base: /go
+
 steps:
   - name: testing1
     pull: never
     image: golang
     environment:
-      TEST: abc
+      GO111MODULE: on
+      GOOS: linux
+      GOARCH: amd64
+      CGO_ENABLED: 0
     commands:
       - go get github.com/joho/godotenv
       - echo "test1"
       - echo "test22"
       - echo $TEST
-      -
+
   - name: build-image
     image: plugins/docker
+    dockerfile: docker/Dockerfile
+    environment:
+      GO111MODULE: on
+      GOOS: linux
+      GOARCH: amd64
+      CGO_ENABLED: 0
     settings:
       repo: weweadsl/helloworld
-#      target: production
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
+#      target: production
 #      tags: latest
       auto_tag: true
 
