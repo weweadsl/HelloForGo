@@ -47,6 +47,7 @@ steps:
     commands:
       - echo "test111"
       - echo "test222"
+      - echo $TEST
 
 image_pull_secrets:
   - dockerconfigjson
