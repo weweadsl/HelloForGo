@@ -19,7 +19,7 @@ steps:
     commands:
       - go get github.com/joho/godotenv
       - echo "test1"
-      - echo "test2"
+      - echo "test22"
       - echo $TEST
 
 #  - name: publish
