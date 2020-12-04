@@ -38,14 +38,10 @@ steps:
 
   - name: publish-image
     image: plugins/docker
-    dockerfile: docker/Dockerfile
-    environment:
-      GO111MODULE: on
-      GOOS: linux
-      GOARCH: amd64
-      CGO_ENABLED: 0
+
     settings:
       repo: weweadsl/helloworld
+      dockerfile: docker/Dockerfile
       username:
         from_secret: docker_username
       password:
