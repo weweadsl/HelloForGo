@@ -8,6 +8,7 @@ platform:
 
 workspace:
   base: /go
+  path: src/github.com/weweadsl/HelloForGo
 
 steps:
   - name: testing1
