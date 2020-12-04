@@ -30,7 +30,10 @@ steps:
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
+      TESTUSER:
+        from_secret: docker_username
     commands:
+      - echo $TESTUSER
       - go build  -o app
 
   - name: publish-image
