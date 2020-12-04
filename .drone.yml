@@ -52,7 +52,7 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-#      auto_tag: true
+      auto_tag: true
 
   - name: testing2
     pull: never
