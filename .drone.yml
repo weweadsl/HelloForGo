@@ -30,15 +30,11 @@ steps:
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
-      TESTUSER:
-        from_secret: docker_username
     commands:
-      - echo $TESTUSER
       - go build  -o app
 
   - name: publish-image
     image: plugins/docker
-
     settings:
       repo: weweadsl/helloworld
       dockerfile: docker/Dockerfile
@@ -46,8 +42,6 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-#      target: production
-#      tags: latest
       auto_tag: true
 
   - name: testing2
