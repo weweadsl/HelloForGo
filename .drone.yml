@@ -48,7 +48,7 @@ steps:
     image: plugins/gcr
     settings:
       registry: gcr.io
-      repo: default/helloworld
+      repo: delta-cosmos-294006/helloworld
       dockerfile: docker/Dockerfile
       tags:
         - ${DRONE_TAG}
