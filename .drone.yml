@@ -53,7 +53,7 @@ steps:
       tags:
         - ${DRONE_TAG}
       json_key:
-        from_secret: gcr_key
+        from_secret: google_credentials
 
   - name: testing2
     pull: never
