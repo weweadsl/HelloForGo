@@ -17,7 +17,7 @@ steps:
     environment:
       TEXT: 123
     commands:
-      - echo "test drone"
+      - echo "test drone！"
       - echo $TEST
       - echo $DRONE_TAG
       - echo $DRONE_REPO
@@ -35,7 +35,7 @@ steps:
       CGO_ENABLED: 0
     commands:
       - go build  -o app
-      -
+
   - name: upx-pack
     pull: always
     image: alpine
