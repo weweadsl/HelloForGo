@@ -11,7 +11,8 @@ workspace:
   path: src/github.com/weweadsl/HelloForGo
 
 steps:
-  - name: testing1
+  - printTest:
+    name: testing1
     pull: never
     image: golang
     environment:
