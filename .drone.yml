@@ -45,15 +45,15 @@ steps:
       - upx -9 app
 
   - name: publish-image
-    image: plugins/docker
+    image: plugins/gcr
     settings:
-      repo: weweadsl/helloworld
+      registry: gcr.io
+      repo: default/helloworld
       dockerfile: docker/Dockerfile
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      auto_tag: true
+      tags:
+        - ${DRONE_TAG}
+      json_key:
+        from_secret: gcr_key
 
   - name: testing2
     pull: never
@@ -63,5 +63,5 @@ steps:
       - echo "test222"
       - echo $TEST
 
-#image_pull_secrets:
-#  - dockerconfigjson
+image_pull_secrets:
+  - dockerconfigjson
