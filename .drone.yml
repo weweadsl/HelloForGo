@@ -60,7 +60,7 @@ steps:
     pull: never
     image: ubuntu
     commands:
-      - echo "test111"
+      - echo "test1111"
       - echo "test222"
       - echo $TEST
 
