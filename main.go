@@ -7,6 +7,7 @@ import (
     "strings"
     "flag"
     "fmt"
+    "github.com/joho/godotenv"
 )
 
 var version = "master"
@@ -14,6 +15,15 @@ var version = "master"
 func showVersion(w http.ResponseWriter, r *http.Request) {
     log.Println(version)
     w.Write([]byte(version))
+}
+
+func showEnv(w http.ResponseWriter, r *http.Request){
+    godotenv.Load()
+
+    ABC := os.Getenv("ABC")
+
+    log.Println(ABC)
+    w.Write([]byte(ABC))
 }
 
 func sayHello(w http.ResponseWriter, r *http.Request) {
@@ -40,7 +50,9 @@ func main() {
         port = fromEnv
     }
     http.HandleFunc("/version", showVersion)
+    http.HandleFunc("/env", showEnv)
     http.HandleFunc("/", sayHello)
+
     log.Println("Listen server on " + port + " port for " + *wordPtr)
     if err := http.ListenAndServe(":"+port, nil); err != nil {
         log.Fatal(err)
