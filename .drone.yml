@@ -15,6 +15,7 @@ steps:
       - echo "test2"
 
 #  - name: publish
+  
 #    image: plugins/gcr
 #    settings:
 #      repo: project/foo
