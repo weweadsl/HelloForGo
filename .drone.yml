@@ -58,7 +58,6 @@ steps:
 =======
       - echo "test1"
       - echo "test2"
-
 #  - name: publish
 #    image: plugins/gcr
 #    settings:
