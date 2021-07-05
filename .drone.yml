@@ -55,6 +55,28 @@ steps:
         - ${DRONE_TAG}
       json_key:
         from_secret: google_credentials
+=======
+      - echo "test1"
+      - echo "test2"
+
+#  - name: publish
+#    image: plugins/gcr
+#    settings:
+#      repo: project/foo
+#      tags: latest
+#      json_key:
+#        from_secret: google_credentials
+#
+#  - name: build-image
+#    image: plugins/docker
+#    settings:
+#      repo: weweadsl/helloworld
+#      target: production
+#      username:
+#        from_secret: docker_username
+#      password:
+#        from_secret: docker_password
+#      tags: ${DRONE_TAG}
 
   - name: testing2
     pull: never
